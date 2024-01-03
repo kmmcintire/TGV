@@ -1,6 +1,8 @@
 ###TGV MANU
 
-####get controlbabies dataset. 2/28
+####get "controlbabies" dataset. 2/28
+##this dataset is from the "control babies" sheet in the transgen datafile
+###controlbabies is used for many analyses in this codefile
 install.packages("MASS")
 library(MASS)
 #get the dataset
@@ -52,6 +54,8 @@ lrtest(totrepronb, totalrepropois)
 
 
 ####FECUNDITY FOR ONLY STD, 2/28
+##uses datafile "strlstdonly"
+##this datafile is named transgen_data for this analysis
 #includes animals producing 0
 #create sum of first three clutches
 transgen_data$C1forsum<-transgen_data$C1
@@ -114,6 +118,13 @@ qqline(resid(c1mm))
 
 
 ###NEONATE SIZE, 2/28
+###THIS analysis uses data file "neonate size for analysis" 
+###in this code the data file is called "babysize"
+##THIS data file contains 4 columns labelled:
+##MOMID - this is the id of the experimental animal producing the neonate, no parasites in this generation
+###GMAPARA - this is the parasite exposure of the mother of the animal in "MOMID"
+##CLONE - which of the 3 genotypes the animal carries
+##SIZE - measurement of the neonate
 ##fit size distribution
 library(fitdistrplus)
 descdist(data=babysize$Size, discrete=FALSE)
@@ -126,7 +137,16 @@ neosize<-glm(log(Size)~GMApara*Clone, data=babysize)
 anova(neosize, test="F")
 
 ##MICG TOTAL SPORE PRODUCTION, BURDEN. 2/28 
-#analysis of total grid score
+##This analysis uses data file "micgspores.csv"
+##In this code the data file is called "spores"
+##contains 6 columns:
+##ID#	-the individual id of the experimental animal
+#Clone- which of the 3 genotypes the animal has
+#mpara	-the maternal infection exposure
+#sum	- total number of grid squares containing spores in all pictures for that animal
+#scoreperday - sum/days of life
+#scoreperinfectedday - sum/ days of life after infection noted
+###analysis of total grid score
 #chose nonparametric analysis, because resids did not conform well to simple distr.
 # download and install the ARTool package
 install.packages("ARTool")

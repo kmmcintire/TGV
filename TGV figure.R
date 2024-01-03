@@ -82,22 +82,10 @@ babysize$Clone<-recode_factor(babysize$Clone, STD="S")
 babysize$Clone<-recode_factor(babysize$Clone, DW="D")
 babysize$Clone<-recode_factor(babysize$Clone, BD="B")
 
-PanelC<-ggplot(data=babysize, aes(x = Clone, y=Size, fill = Clone, pattern = GMApara)) +theme(text = element_text(family = "Times New Roman"))+
-  geom_boxplot()+theme_classic()+  geom_boxplot_pattern(position = position_dodge(preserve = "single"),
-                                                        color = "black", 
-                                                        pattern_fill = "black",
-                                                        pattern_angle = 45,
-                                                        pattern_density = 0.5,
-                                                        pattern_spacing = 0.025,
-                                                        pattern_key_scale_factor = 0.6) + 
-  scale_fill_manual(values = colorRampPalette(c("#5e3c99","#1B9E77","#e66101"))(3)) +
-  scale_pattern_manual(values = c(MicG = "circle", None = "none")) +
-  labs(x = "Genotype", y = "Neonate Size", pattern = "Grandmaternal Exposure") + 
-  guides(pattern = guide_legend(override.aes = list(fill = "white")),
-         fill = guide_legend(override.aes = list(pattern = "none")))+ theme(legend.position="none")   + theme(text = element_text(size = 17)) 
-PanelC
-
-
+ggplot(tgc, aes(x=dose, y=len, colour=supp)) + 
+  geom_errorbar(aes(ymin=len-se, ymax=len+se), width=.1) +
+  geom_line() +
+  geom_point()
 #Making the two panel plot 
 
 Panela<-PanelA$plot
