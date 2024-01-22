@@ -22,20 +22,24 @@ PanelA<-ggsurvplot(fit=survfit(Surv(deathday, died) ~ MomPXPara, data = redoB),
                       risk.table = FALSE,
                       censor=FALSE,
                       linetype = c("solid","dashed","solid","dashed"),
-                      size = 1, 
+                      size = 1.5, 
                       xlim=c(0,21),
                       break.x.by = 10,
                       #show.legend=FALSE,
-                      ggtheme = theme_classic2(base_size=10, base_family = "Arial"),
-                      palette = c("GREY","GREY","BLACK","BLACK"),
-                      legend = c(.3,.3),
-                      legend.title = "Maternal/Current Exposure",
-                   legend.text = element_text(size=8),
-                      legend.labs = c( "None/None","None/O.pajunii", "O.pajunii/None", "O.pajunii/O.pajunii"))+
+                      ggtheme = theme_classic2(base_size=14, base_family = "Arial"),
+                      palette = c("#898989","#898989","BLACK","BLACK"),
+                      legend = c(.25,.3),
+                      legend.title = "Maternal/Current",
+                   legend.text = element_text(size=12),
+                      legend.labs = c( "None/None","None/O.p", "O.p/None", "O.p/O.p"))+
                         labs(tag="A")  #label for multipanel figure
 
+#PanelA
+PanelA$plot <- PanelA$plot+ 
+  ggplot2::annotate("text", 
+                    x = 16, y = 0.1, # x and y coordinates of the text
+                    label = "B genotype \n RMST diff = -1.844 \n p = 0.083", size = 4)
 PanelA
-
 
 PanelB<-ggsurvplot(fit=survfit(Surv(deathday, died) ~ MomPXPara, data = redoD),
                    xlab = "Days", 
@@ -44,17 +48,22 @@ PanelB<-ggsurvplot(fit=survfit(Surv(deathday, died) ~ MomPXPara, data = redoD),
                    risk.table = FALSE,
                    censor=FALSE,
                    linetype = c("solid","dashed","solid","dashed"),
-                   size = 1, 
+                   size = 1.5, 
                    xlim=c(0,21),
                    break.x.by = 10,
                    show.legend=FALSE,
-                   ggtheme = theme_classic2(base_size=10, base_family = "Arial"),
-                   palette = c("GREY","GREY","BLACK","BLACK"),
+                   ggtheme = theme_classic2(base_size=14, base_family = "Arial"),
+                   palette = c("#898989","#898989","BLACK","BLACK"),
                    legend = c(.25,.2),
-                   legend.title = "Maternal/Current Exposure",
+                   legend.title = "Maternal/Current",
                    legend.labs = c( "None/None","None/O.pajunii", "O.pajunii/None", "O.pajunii/O.pajunii"))+
   labs(tag="B")  #label for multipanel figure
 
+#PanelB
+PanelB$plot <- PanelB$plot+ 
+  ggplot2::annotate("text", 
+                    x = 15, y = 0.1, # x and y coordinates of the text
+                    label = "D genotype \n RMST diff = -4.3 \n p = 0.008", size = 4)
 PanelB
 
 
@@ -65,17 +74,22 @@ PanelC<-ggsurvplot(fit=survfit(Surv(deathday, died) ~ MomPXPara, data = redo),
                    risk.table = FALSE,
                    censor=FALSE,
                    linetype = c("solid","dashed","solid","dashed"),
-                   size = 1, 
+                   size = 1.5, 
                    xlim=c(0,21),
                    break.x.by = 10,
                    show.legend=FALSE,
-                   ggtheme = theme_classic2(base_size=10, base_family = "Arial"),
-                   palette = c("GREY","GREY","BLACK","BLACK"),
+                   ggtheme = theme_classic2(base_size=14, base_family = "Arial"),
+                   palette = c("#898989","#898989","BLACK","BLACK"),
                    legend = c(.25,.2),
-                   legend.title = "Maternal/Current Exposure",
-                   legend.labs = c( "None/None","None/O.pajunii", "O.pajunii/None", "O.pajunii/O.pajunii"))+
+                   legend.title = "Maternal/Current",
+                   legend.labs = c( "None/None","None/O.p", "O.p/None", "O.p/O.p"))+
   labs(tag="C")  #label for multipanel figure
 
+#PanelC
+PanelC$plot <- PanelC$plot+ 
+  ggplot2::annotate("text", 
+                    x = 7, y = 0.1, # x and y coordinates of the text
+                    label = "S genotype \n RMST diff = -4.141 \n p = 0.004", size = 4)
 PanelC
 
 PanelD<-ggsurvplot(fit=survfit(Surv(deathday, died) ~ MomParasite, data = immact),
@@ -85,16 +99,16 @@ PanelD<-ggsurvplot(fit=survfit(Surv(deathday, died) ~ MomParasite, data = immact
                    risk.table = FALSE,
                    censor=FALSE,
                    #linetype = c("solid","dashed","solid","dashed","solid", "dashed","solid","dashed", "solid","dashed", "solid","dashed"),
-                   size = 1, 
+                   size = 1.5, 
                    xlim=c(0,80),
                    break.x.by = 10,
-                   ggtheme = theme_classic2(base_size=10, base_family = "Arial"),
-                   palette = c("BLACK","GREY","BLUE","RED"),
-                    legend = c(.9,.77),
-legend.title = "Maternal Exposure",
+                   ggtheme = theme_classic2(base_size=14, base_family = "Arial"),
+                   palette = c("BLACK","#898989","BLUE","RED"),
+                    legend = c(.90,.77),
+legend.title = "Maternal",
 #legend.title = element_text(size=10), #change legend title font size
-legend.text = element_text(size=8), #change legend text font size
-legend.labs = c( "O.pajunii","None","P.ramosa", "M.bicuspidata"))+
+legend.text = element_text(size=12), #change legend text font size
+legend.labs = c( "O.p","None","P.r", "M.b"))+
 labs(tag="D")  #label for multipanel figure
 
 PanelD
@@ -111,16 +125,16 @@ PanelE<-ggsurvplot(fit=survfit(Surv(deathday, died) ~ tgvormet, data = tgvvm2),
                          risk.table = FALSE,
                          censor=FALSE,
                          linetype = c("solid","dashed","solid"),
-                         size = 1, 
+                         size = 1.5, 
                          xlim=c(0,80),
                          break.x.by = 10,
-                         ggtheme = theme_classic2(base_size=10, base_family = "Arial"),
-                         palette = c("GREY", "RED", "BLACK"),
+                         ggtheme = theme_classic2(base_size=14, base_family = "Arial"),
+                         palette = c("#898989", "RED", "BLACK"),
                          legend = c(.85,.75), 
                    #legend.title = element_text(size=10), #change legend title font size
-                   legend.text = element_text(size=8), #change legend text font size
-                         legend.title = ("Maternal/Current Exposure"),
-                        legend.labs = c( "None/None", "None/M.bicuspidata", "O.pajunii/None"))+
+                   legend.text = element_text(size=12), #change legend text font size
+                         legend.title = ("Maternal/Current"),
+                        legend.labs = c( "None/None", "None/M.b", "O.p/None"))+
                         labs(tag="E")  #label for multipanel figure
 
 PanelE
