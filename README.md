@@ -1,9 +1,10 @@
 # TGV
 data and code for TGV paper
 
-Title:Transgenerational virulence: Maternal pathogen exposure reduces offspring fitness
+Title:Transgenerational pathogen effects: Maternal pathogen exposure reduces offspring fitness
 
-Authors:Kristina M. McIntire1, Marcin K. Dziuba1, Elizabeth B. Haywood2, Miles L. Robertson3, Megan Vaandrager1, Emma Baird1, Fiona Corcoran1, Michael H. Cortez3, Meghan A. Duffy1
+
+Authors:Kristina M. McIntire1, Marcin K. Dziuba1, Elizabeth B. Haywood2, Miles L. Robertson3, Megan Vaandrager1, Emma Baird1, Fiona Corcoran1, Taleah Nelson1, Michael H. Cortez3, Meghan A. Duffy1
 
 Affiliations:
 1Department of Ecology and Evolutionary Biology, University of Michigan, Ann Arbor, Michigan 48109
@@ -14,10 +15,8 @@ One Sentence Summary: Virulent effects of pathogens can carry across generations
 
 Contents:
 
-ModelAnalysisFiles.zip -- This folder contains all model analysis files inclusive of a separate Read Me explaining those files
+for model folder -- This folder contains model analysis files with a separate Read Me.  
 
-Sensitivity_Dentifera_script.R -- This file was used to analyze the field data
+Sensitivity_Dentifera_script -- This file was used to analyze the field data
 
-TGV figure.R  --This file was used to generate Figure 1 in the manuscript
-
-for manu.R --This file was used to analyze the laboratory results
+TGV Lab Experiment - for Ecology -- This folder contains data files and analysis/figure files for lab experiment data

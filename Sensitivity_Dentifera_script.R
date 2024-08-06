@@ -98,7 +98,7 @@ NXYZP_Model=function(t,V,parms){
           font=2,font.lab=2,cex.lab = 1.2,
           xlim=c(0,100),ylim=c(0,100))
   lines(out_noTGV[,1],out_noTGV[,2],type='l',lty="solid",col="black",lwd=2)
-  legend("center", legend=c("With TGV","Without TGV"),col=c("#0583D2","black"), lty=1, lwd=c(3,2), cex=1)
+  legend("center", legend=c("With transgen. effects","Without transgen. effects"),col=c("#0583D2","black"), lty=1, lwd=c(3,2), cex=1)
   
   # Infected Density
   matplot(out_yesTGV[,1],out_yesTGV[,4]*out_yesTGV[,2],type='l',lty="solid",col="#0583D2",lwd=3,
