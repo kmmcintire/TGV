@@ -2,7 +2,9 @@
 
 #title: Transgenerational pathogen effects: Maternal pathogen exposure reduces offspring fitness
 #Submitted to Ecology for review
-
+#Neosize sheet imported as "NeoSizeA" --used in F3 panel D
+#TGV vs Metsch sheet imported as "tgvvmz" --Used in Figure 2
+#Main EXP sheet imported as "redoz" --used in Figure 2, FIgure 3 panels A-C
 
 library(survival)
 library(ggplot2)
@@ -20,42 +22,48 @@ windowsFonts()
 
 
 
+
+
 ####################
 #Figure 2
 ################
 
 ## main life plot
-
 #gather and configure data for plot
-#tgvvm2 dataset was used for tgv vs metsch comparison, the metsch animals will be used in this plot
-metforfig2 <- subset(tgvvm2, (tgvormet == 'met'))
-metforfig2<- metforfig2[ -c(2,4,6:15, 18:20) ]
-names(metforfig2)[2] <- "MomParasite"
-names(metforfig2)[3] <- "Parasite"
-#redo dataset was used for TGV comparisons, these animals will be used in this plot
-tgvforfig2<-redo
-tgvforfig2<- tgvforfig2[ -c(2,5:16,19:31) ]
-tgvforfig2$Parasite<-recode_factor(tgvforfig2$Parasite, aNone="None")
-tgvforfig2$MomParasite<-recode_factor(tgvforfig2$MomParasite, aNone="None")
-tgvforfig2$MomParasite<-recode_factor(tgvforfig2$MomParasite, MicG="O.pajunii")
+#tgvvmz dataset was used for tgv vs metsch comparison, the metsch animals will be used in this plot
+#remove uninfected metsch animal
+tgvvmz2 <- tgvvmz
+# remove rows in r by row number # remove uninfected metsch animal
+tgvvmz2 <- tgvvmz2[-c(20),]
+metforfig2z <- subset(tgvvmz2, (tgvormet == 'met'))
+metforfig2z<- metforfig2z[ -c(2,4,6:15, 18:19) ]
+names(metforfig2z)[2] <- "MomParasite"
+names(metforfig2z)[3] <- "Parasite"
+#redoz dataset was used for TGV comparisons, these animals will be used in this plot
+tgvforfig2z<-redoz
+tgvforfig2z<- tgvforfig2z[ -c(2,4,6:17,20:22) ]
+tgvforfig2z$Parasite<-recode_factor(tgvforfig2z$Parasite, aNone="None")
+tgvforfig2z$Parasite<-recode_factor(tgvforfig2z$Parasite, MicG="O.pajunii")
+tgvforfig2z$MomParasite<-recode_factor(tgvforfig2z$MomParasite, aNone="None")
+tgvforfig2z$MomParasite<-recode_factor(tgvforfig2z$MomParasite, MicG="O.pajunii")
 #combining sets and creating combined variiable for figure 2
-lifefigset<-rbind(metforfig2,tgvforfig2)
-lifefigset$MomPXPara<-paste(lifefigset$MomParasite,lifefigset$Parasite)
+lifefigsetz<-rbind(metforfig2z,tgvforfig2z)
+lifefigsetz$MomPXPara<-paste(lifefigsetz$MomParasite,lifefigsetz$Parasite)
 
 
-Figure2asof71824<-ggsurvplot(fit=survfit(Surv(deathday, died) ~ MomPXPara, data =lifefigset),
-                      xlab = "Days", 
-                      ylab = "Survival Probability",
-                      conf.int = FALSE, 
-                      risk.table = FALSE,
-                      censor=FALSE,
-                      linetype = c("solid","solid","dashed","solid","dashed"),
-                      size = 1.0, 
-                      xlim=c(0,80),
-                      palette = c("RED", "BLACK", "BLACK", "BLUE", "BLUE"),
-                      legend = c(.85,.8), 
-                      legend.title = "Pathogen Exposure",
-                      legend.labs = c( "None/Mb", "None/None", "None/Op","Op/None", "Op/Op"))
+Figure2asof71824<-ggsurvplot(fit=survfit(Surv(deathday, died) ~ MomPXPara, data =lifefigsetz),
+                             xlab = "Days", 
+                             ylab = "Survival Probability",
+                             conf.int = FALSE, 
+                             risk.table = FALSE,
+                             censor=FALSE,
+                             linetype = c("solid","solid","dashed","solid","dashed"),
+                             size = 1.0, 
+                             xlim=c(0,80),
+                             palette = c("RED", "BLACK", "BLACK", "BLUE", "BLUE"),
+                             legend = c(.85,.8), 
+                             legend.title = "Pathogen Exposure",
+                             legend.labs = c( "None/Mb", "None/None", "None/Op","Op/None", "Op/Op"))
 Figure2asof71824$plot$layers <- c(annotate(geom = "rect", xmin = 0, xmax = 21, ymin = 0, ymax = 1, fill = "grey95"), Figure2asof71824$plot$layers)
 ggpar(Figure2asof71824, 
       font.main = c(20, "bold"),
@@ -74,20 +82,19 @@ Figure2asof71824
 #####################
 
 #3 panel figure about reproduction
-
-tgvforfig3<-redo
-tgvforfig3<- tgvforfig3[ -c(2,5:7,11,13:30) ]
+tgvforfig3<-redoz[-c(2,4,6:7,12,14:22)]
 tgvforfig3$Parasite<-recode_factor(tgvforfig3$Parasite, aNone="None")
-tgvforfig3$Parasite<-recode_factor(tgvforfig3$Parasite, "O. pajunii"="Op")
+tgvforfig3$Parasite<-recode_factor(tgvforfig3$Parasite, "MicG"="Op")
 tgvforfig3$MomParasite<-recode_factor(tgvforfig3$MomParasite, aNone="None")
 tgvforfig3$MomParasite<-recode_factor(tgvforfig3$MomParasite, MicG ="Op")
+
 
 # panel a = CLUTCHES PRODUCED 
 
 PA<-ggplot(data=tgvforfig3, aes(x = Parasite, y=clutches, fill = MomParasite)) +theme(text = element_text(family = "Times New Roman"))+
   geom_boxplot(color="GREY")+theme_classic(base_size = 20)+  
   scale_fill_manual(values = colorRampPalette(c("BLUE","BLACK"))(2)) +
-  geom_point(color= "GREY", position=position_jitterdodge())+
+  geom_point(color= "GREY", position=position_jitterdodge(seed=123))+ #seed makes jitter reproducible (added 5.9.25KMM)
   labs(x = "", y = "Clutches Produced") + 
   #guides(pattern = guide_legend(override.aes = list(fill = "white")),
         # fill = guide_legend(override.aes = list(pattern = "none")))+ theme(legend.position="top")+ theme(text = element_text(size = 17))+  
@@ -102,7 +109,7 @@ PA
 PB<-ggplot(data=tgvforfig3, aes(x = Parasite, y=sum, fill = MomParasite)) +theme(text = element_text(family = "Times New Roman"))+
   geom_boxplot(color="GREY")+theme_classic(base_size = 20)+  
   scale_fill_manual(values =c("BLUE","BLACK","")) +
-  geom_point(color= "GREY", position=position_jitterdodge())+
+  geom_point(color= "GREY", position=position_jitterdodge(seed=123))+#seed makes jitter reproducible (added 5.9.25KMM)
   labs(x = "", y = "Early Reproduction", fill = "Maternal Exposure") + 
   guides(fill = guide_legend(override.aes = list(pattern = "none")))+  theme(text = element_text(size = 17))  +  
   labs(tag="C")#label for multipanel figure
@@ -111,16 +118,16 @@ PB<-PB+guides(fill = guide_legend(override.aes = list(pattern = "none")))+ theme
 PB
 
 ##panel c - neonate size
-
-sizeforposter<-neonatesize
-sizeforpostera <- subset(sizeforposter, (Clone == 'S'))
+sizeforpostera<-NeosizeA
+names(sizeforpostera)[4] <- "Para"
+names(sizeforpostera)[3] <- "GMApara"
+names(sizeforpostera)[5] <- "gdaughtersize"
 sizeforpostera$Para<-recode_factor(sizeforpostera$Para, "O.pajunii"="Op")
 sizeforpostera$GMApara<-recode_factor(sizeforpostera$GMApara, "O.pajunii"="Op")
 
-
 PC<-ggplot(data=sizeforpostera, aes(x = Para, y=gdaughtersize, fill = GMApara)) +theme(text = element_text(family = "Times New Roman"))+
   geom_boxplot(outlier.shape=NA, color= "GREY")+theme_classic( base_size=20)+  
-  geom_point(color= "GREY", position=position_jitterdodge())+
+  geom_point(color= "GREY", position=position_jitterdodge(seed=123))+#seed makes jitter reproducible (added 5.9.25KMM)
   scale_fill_manual(values =c("BLUE","BLACK","")) +
   #scale_pattern_manual(values = c(Exposed = "circle", None = "none")) +
   guides(fill = guide_legend(override.aes = list(pattern = "none")))+  theme(text = element_text(size = 17))  +
@@ -135,7 +142,7 @@ PC
 PD<-ggplot(data=tgvforfig3, aes(x = Parasite, y=c1size, fill = MomParasite)) +theme(text = element_text(family = "Times New Roman"))+
   geom_boxplot(color="GREY")+theme_classic(base_size = 20)+  
   scale_fill_manual(values =c("BLUE","BLACK","")) +
-  geom_point(color= "GREY", position=position_jitterdodge())+
+  geom_point(color= "GREY", position=position_jitterdodge(seed=123))+#seed makes jitter reproducible (added 5.9.25KMM)
   labs(x = "", y = "Size at 1st Reproduction", fill = "Maternal Exposure") + 
   guides(fill = guide_legend(override.aes = list(pattern = "none")))+  theme(text = element_text(size = 17))  +  
   labs(tag="A")#label for multipanel figure
