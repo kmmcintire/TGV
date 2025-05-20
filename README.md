@@ -19,4 +19,4 @@ for model folder -- This folder contains model analysis files with a separate Re
 
 Sensitivity_Dentifera_script -- This file was used to analyze the field data
 
-TGV Lab Experiment - for Ecology -- This folder contains data files and analysis/figure files for lab experiment data
+TGV Lab Experiment - for Ecology -- This folder contains data files and analysis/figure files for lab experiment data. with the exception of the supplement embryo analysis, which are the embryo analysis files.
